@@ -27,7 +27,26 @@ export const setOnePost = (req, res) => {
   res.json(sentData);
 };
 
-export const updateOnePost = (req, res) => {};
+export const updateOnePost = (req, res) => {
+  const data = getData();
+  const { id } = req.params;
+  const idToInt = superParseInt(id);
+  const sentData = req.body;
+
+  const newData = data.map((post) => {
+    if (post.id === idToInt) {
+      return {
+        id: idToInt,
+        ...sentData,
+      };
+    }
+
+    return post;
+  });
+
+  setData(newData);
+  res.json({ massage: `Post with ID (${id}) was updated` });
+};
 
 export const deleteOnePost = (req, res) => {
   const data = getData();
@@ -36,5 +55,5 @@ export const deleteOnePost = (req, res) => {
   const newData = data.filter(({ id }) => id !== idToInt);
 
   setData(newData);
-  res.json({ massage: `Deleting post with ID (${id})` });
+  res.json({ massage: `Post with ID (${id}) was deleted` });
 };

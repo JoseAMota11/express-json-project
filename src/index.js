@@ -6,13 +6,13 @@ import {
   getOnePost,
   getPosts,
   setOnePost,
+  updateOnePost,
 } from './handlers/index.js';
 import {
   idNotFound,
   preventUserFromAddingPostsWithTheSameId,
   preventUserFromSendingAnEmptyObject,
 } from './middleware/index.js';
-import { getData, setData, superParseInt } from './helpers/index.js';
 
 dotenv.config();
 
@@ -32,9 +32,7 @@ app.get(routes.postById, getOnePost);
 
 app.post(routes.post, setOnePost);
 
-app.put(routes.postById, (req, res) => {
-  res.json({ massage: 'Updating a post' });
-});
+app.put(routes.postById, updateOnePost);
 
 app.delete(routes.postById, deleteOnePost);
 
