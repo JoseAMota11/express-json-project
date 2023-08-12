@@ -1,6 +1,9 @@
 ### Getting all posts
 GET http://localhost:5050/api/posts
 
+### Getting one post
+GET http://localhost:5050/api/post/1
+
 ### Saving a post
 POST http://localhost:5050/api/post
 Content-Type: application/json

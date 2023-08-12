@@ -1,7 +1,11 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { routes } from './routes/index.js';
-import { getPosts } from './handlers/index.js';
+import { getOnePost, getPosts } from './handlers/index.js';
+import {
+  idNotFound,
+  preventUserFromAddingPostsWithTheSameId,
+} from './middleware/index.js';
 import data from '../data.json' assert { type: 'json' };
 
 dotenv.config();
@@ -11,26 +15,13 @@ const PORT = process.env.PORT;
 
 // Middleware
 app.use(express.json());
-app.post(routes.post, (req, res, next) => {
-  const { id } = req.body;
-  const idToInt = parseInt(id);
-  const foundPost = data.some(({ id }) => id === idToInt);
+app.post(routes.post, preventUserFromAddingPostsWithTheSameId);
+app.use(routes.postById, idNotFound);
 
-  if (foundPost) {
-    res
-      .status(403)
-      .json({ message: 'This is is already used, please use another' });
-    return;
-  }
-
-  next();
-});
-
+// Routes
 app.get(routes.posts, getPosts);
 
-app.get(routes.postById, (req, res) => {
-  res.json({ massage: 'Hello World' });
-});
+app.get(routes.postById, getOnePost);
 
 app.post(routes.post, (req, res) => {
   res.json({ massage: 'Creating a post' });
