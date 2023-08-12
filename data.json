@@ -1,5 +1,7 @@
-{
-  "id": 1,
-  "title": "My first post",
-  "description": "This is my first post"
-}
+[
+  {
+    "id": 1,
+    "title": "My first post",
+    "description": "This is my first post"
+  }
+]
