@@ -2,20 +2,20 @@
 GET http://localhost:5050/api/posts
 
 ### Getting one post
-GET http://localhost:5050/api/post/3dvrva
+GET http://localhost:5050/api/post/3
 
 ### Saving post
 POST http://localhost:5050/api/post
 Content-Type: application/json
 
 {
-  "id": "3dvrva",
-  "title": "Learn Node.js",
-  "description": "Node.js is really fun to learn"
+  "id": 5,
+  "title": "Learn Express.js",
+  "description": "Express.js is really fun to learn"
 }
 
 ### Updating post
 PUT http://localhost:5050/api/post/2
 
 ### Deleting post
-DELETE  http://localhost:5050/api/post/1
+DELETE  http://localhost:5050/api/post/3dvrva

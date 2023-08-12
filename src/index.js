@@ -1,12 +1,18 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { routes } from './routes/index.js';
-import { getOnePost, getPosts, setOnePost } from './handlers/index.js';
+import {
+  deleteOnePost,
+  getOnePost,
+  getPosts,
+  setOnePost,
+} from './handlers/index.js';
 import {
   idNotFound,
   preventUserFromAddingPostsWithTheSameId,
   preventUserFromSendingAnEmptyObject,
 } from './middleware/index.js';
+import { getData, setData, superParseInt } from './helpers/index.js';
 
 dotenv.config();
 
@@ -30,9 +36,7 @@ app.put(routes.postById, (req, res) => {
   res.json({ massage: 'Updating a post' });
 });
 
-app.delete(routes.postById, (req, res) => {
-  res.json({ massage: 'Deleting a post' });
-});
+app.delete(routes.postById, deleteOnePost);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

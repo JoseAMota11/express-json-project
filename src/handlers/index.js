@@ -29,4 +29,12 @@ export const setOnePost = (req, res) => {
 
 export const updateOnePost = (req, res) => {};
 
-export const deleteOnePost = (req, res) => {};
+export const deleteOnePost = (req, res) => {
+  const data = getData();
+  const { id } = req.params;
+  const idToInt = superParseInt(id);
+  const newData = data.filter(({ id }) => id !== idToInt);
+
+  setData(newData);
+  res.json({ massage: `Deleting post with ID (${id})` });
+};
