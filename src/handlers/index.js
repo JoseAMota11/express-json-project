@@ -1,10 +1,11 @@
-import data from '../../data.json' assert { type: 'json' };
+import { getData, setData } from '../helpers/index.js';
 
 export const getPosts = (req, res) => {
-  res.json(data);
+  res.json(getData());
 };
 
 export const getOnePost = (req, res) => {
+  const data = getData();
   const { id } = req.params;
   const idToInt = parseInt(id);
   const foundedPost = data.find(({ id }) => id === idToInt);

@@ -2,14 +2,14 @@
 GET http://localhost:5050/api/posts
 
 ### Getting one post
-GET http://localhost:5050/api/post/1
+GET http://localhost:5050/api/post/2
 
 ### Saving a post
 POST http://localhost:5050/api/post
 Content-Type: application/json
 
 {
-  "id": 1,
+  "id": 2,
   "title": "Test",
   "description": "This is a test"
 }
