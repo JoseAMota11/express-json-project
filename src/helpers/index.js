@@ -12,3 +12,14 @@ export const getData = () => {
 export const setData = (data) => {
   writeFileSync(dataPath, JSON.stringify(data), 'utf-8');
 };
+
+export const superParseInt = (id) => {
+  if (!Number.isInteger(id) && id !== undefined) {
+    const regex = new RegExp('[a-zA-Z]+', 'g');
+    if (!id.match(regex)) return parseInt(id);
+
+    return id;
+  }
+
+  return id;
+};

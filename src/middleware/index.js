@@ -1,8 +1,20 @@
-import data from '../../data.json' assert { type: 'json' };
+import { getData, superParseInt } from '../helpers/index.js';
+
+export const preventUserFromSendingAnEmptyObject = (req, res, next) => {
+  const sentData = req.body;
+
+  if (Object.keys(sentData).length === 0) {
+    res.status(403).json({ message: "You can't send an empty object" });
+    return;
+  }
+
+  next();
+};
 
 export const preventUserFromAddingPostsWithTheSameId = (req, res, next) => {
+  const data = getData();
   const { id } = req.body;
-  const idToInt = parseInt(id);
+  const idToInt = superParseInt(id);
   const foundedPost = data.some(({ id }) => id === idToInt);
 
   if (foundedPost) {
@@ -16,12 +28,15 @@ export const preventUserFromAddingPostsWithTheSameId = (req, res, next) => {
 };
 
 export const idNotFound = (req, res, next) => {
+  const data = getData();
   const { id } = req.params;
-  const idToInt = parseInt(id);
+  const idToInt = superParseInt(id);
   const foundedPost = data.some(({ id }) => id === idToInt);
 
   if (!foundedPost) {
-    res.status(404).json({ message: 'There is no post with that ID' });
+    res
+      .status(404)
+      .json({ message: `There is no post with that ID (${idToInt})` });
     return;
   }
 
