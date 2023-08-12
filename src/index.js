@@ -36,6 +36,10 @@ app.put(routes.postById, updateOnePost);
 
 app.delete(routes.postById, deleteOnePost);
 
+app.use((_, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
